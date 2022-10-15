@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block search %}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1> {{ product.title }}</h1>
+    <div class="review">
+    {% for review in product.reviews.all %}
+        <p>Reviewer: {{ review.user.username }}</p>
+        <p>Score: {{ review.score }}</p>
+        <p>Text: {{ review.text }}</p>
+        <a href="{% url "delete_product_review" review.pk %}" class="btn btn-danger">Delete</a>
+        <hr>
+    {% endfor %}
+
+    <br><br>
+
+    <form action="{% url 'list_product_review' form.initial.product.pk %}" method="post">
+        {% csrf_token %}
+        {{ form.score.html_name }}
+        {{ form.score }}<br><br>
+        {{ form.text.html_name }}
+        {{ form.text }}<br>
+        <input type="submit" value="Submit" class="btn btn-primary">
+    </form>
+    </div>
+</div>
+{% endblock content %}

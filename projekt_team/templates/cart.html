@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static %}
+{% static "style.css" %}
+{% block search %}
+{% endblock %}
+
+{% block content %}
+
+    <h1>Cart - {{ cart.user.username }}</h1>
+    <div class="d-flex justify-content-center">
+    {% for product in cart.products.all %}
+        <div class="card" style="width: 14rem; margin-left: 2em; margin-right: 2em" >
+            <img src=https://via.placeholder.com/150 class="bd-placeholder-img card-img-top" alt="">
+            <div class="card-body">
+                <h5 class="card-title">{{ product.title }}</h5>
+                <p class="card-text"><strong>Price:</strong> {{ product.price|floatformat }},-CZK/100g</p>
+                <p class="card-text"><strong>Form:</strong> {{ product.form }}</p>
+                <a href="{% url 'remove_from_cart' product.pk %}" class="btn btn-danger">Remove from cart</a>
+            </div>
+        </div>
+
+    {% endfor %}
+    <br>
+    </div>
+    <strong>Total Price</strong> = {{ cart.total_price|floatformat }},- CZK
+
+{% endblock content %}
